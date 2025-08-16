@@ -1,46 +1,16 @@
-const TMDB_BASE = 'https://api.themoviedb.org/3/trending/movie';
+const { tmdbFetch } = require("../utils/apiUtils");
 
-
-const BASE_PARAMS = {
-  language: 'en-US',
-};
-
-async function fetchTrending( timewindow, page = 1 ) {
-  const token = process.env.TMDB_BEARER_TOKEN;
-
+async function fetchTrending(timewindow, page = 1 ) {
+  
   const params = new URLSearchParams({
-    ...BASE_PARAMS,
+    language: 'en-US',
     page: String(page),
   });
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10_000);
-
-  const url = `${TMDB_BASE}/${timewindow}?${params.toString()}`;
-  console.log(`Fetching TMDB trending: ${url}`);
-
-  const resp = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-    signal: controller.signal,
-  }).catch((e) => {
-    throw e;
-  }).finally(() => clearTimeout(timeoutId));
-
-  const data = await resp.json().catch(() => ({}));
-
-  if (!resp.ok) {
-    const err = new Error('TMDB responded with an error');
-    err.upstream = true;
-    err.status = resp.status;
-    err.data = data;
-    throw err;
-  }
-
-  return data;
+  
+  const TMDB_BASE = 'https://api.themoviedb.org/3/trending/movie';
+  const url = `${TMDB_BASE}/${timewindow}?${params.toString()}`; 
+  
+  return await tmdbFetch(url);
 };
 
 module.exports.fetchTrending = fetchTrending;
