@@ -1,7 +1,7 @@
 // Pull in required modules
 const searchService = require("../service/search.service");
 const parseIntWithFallback = require("../utils/number");
-const handleApiError = require("../utils/apiUtils");
+const { handleApiError } = require("../utils/apiUtils");
 
 async function getMovieByName(req, res, next) {
   try {
@@ -11,15 +11,8 @@ async function getMovieByName(req, res, next) {
       500
     );
 
-    //Fetch trending data from the service 123
     const data = await searchService.fetchSearch(movieName, page);
-
-    console.log(`Fetching movie by name: ${movieName}, page: ${page}`);
-
-    res.status(200).json({
-      source: "tmdb",
-      ...data,
-    });
+    res.status(200).json(data);
   } catch (err) {
     handleApiError(err, res, next);
   }

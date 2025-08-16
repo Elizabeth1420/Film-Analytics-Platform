@@ -1,7 +1,7 @@
 // Pull in required modules
 const trendingService = require("../service/trending.service");
+const { handleApiError } = require("../utils/apiUtils");
 const parseIntWithFallback = require("../utils/number");
-const handleApiError = require("../utils/apiUtils");
 
 async function getTrending(req, res, next) {
   try {
@@ -11,16 +11,8 @@ async function getTrending(req, res, next) {
       500
     );
 
-    console.log(
-      `Fetching trending for time window: ${timewindow}, page: ${page}`
-    );
-
-    // Fetch trending data from the service
     const data = await trendingService.fetchTrending(timewindow, page);
-    res.status(200).json({
-      source: "tmdb",
-      ...data,
-    });
+    res.status(200).json(data);
   } catch (err) {
     handleApiError(err, res, next);
   }
