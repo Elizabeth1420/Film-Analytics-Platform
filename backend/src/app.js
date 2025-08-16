@@ -1,16 +1,26 @@
-require('dotenv').config();
 const express = require('express');
-const trendingRoutes = require('./routes/trending.routes');
-const searchRoutes = require('./routes/search.routes');
-const reviewsRoutes = require('./routes/reviews.routes');
+
+
+// Load environment variables from .env file
+
+require('dotenv').config();
+
+// Check for required environment variables
+const requiredEnv = ['TMDB_BEARER_TOKEN', 'OMBD_API_KEY'];
+requiredEnv.forEach((key) => {
+  if (!process.env[key]) {
+    console.error(`Missing required environment variable: ${key}`);
+    process.exit(1);
+  }
+});
+
 
 
 const app = express();
 app.use(express.json());
 
-app.use('/api/trending', trendingRoutes);
-app.use('/api/search', searchRoutes);
-app.use('/api/reviews', reviewsRoutes);
+// Expose the movies routes
+app.use('/api/movies', require('./routes/movies.routes'));
 
 
 app.use((err, req, res, next) => {

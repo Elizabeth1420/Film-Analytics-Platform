@@ -10,9 +10,6 @@ const BASE_PARAMS = {
 
 async function fetchSearch( query, page = 1 ) {
   const token = process.env.TMDB_BEARER_TOKEN;
-  if (!token) {
-    throw new Error('TMDB_BEARER_TOKEN is missing. Add it to your environment.');
-  }
 
   const params = new URLSearchParams({
     ...BASE_PARAMS,

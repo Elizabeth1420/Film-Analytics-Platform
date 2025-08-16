@@ -9,13 +9,9 @@ const BASE_PARAMS = {
 
 
 async function fetchReviews( id, page = 1 ) {
+
   const token = process.env.TMDB_BEARER_TOKEN;
   const omdbApiKey = process.env.OMBD_API_KEY;
-
-  // Ensure both tokens are available
-  if (!token || !omdbApiKey) {
-    throw new Error('TMDB_BEARER_TOKEN or api key is missing. Add it to your environment.');
-  }
 
   const params = new URLSearchParams({
     ...BASE_PARAMS,
