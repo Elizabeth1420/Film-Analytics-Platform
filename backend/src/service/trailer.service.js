@@ -15,10 +15,12 @@ async function fetchTrailer(id) {
     throw error; // Let controller handle the error
   }
 
+  // Check if the response contains a movie trailer,
+  // in the TMDB API, trailer are either name "Trailer" or "Official Trailer".
   const trailer = response.results.find(
     (item) =>
       item.type === "Trailer" &&
-      item.name.includes("Official Trailer") &&
+      item.name.toLowerCase().includes("trailer") &&
       item.site === "YouTube"
   );
 
