@@ -1,7 +1,8 @@
 // Pull in required modules
 const reviewsService = require("../service/reviews.service");
 const { handleApiError } = require("../utils/apiUtils");
-const parseIntWithFallback = require("../utils/number");
+const { parseIntWithFallback } = require("../utils/validation");
+
 
 async function getReviews(req, res, next) {
   try {

@@ -7,7 +7,7 @@ async function login(email, password) {
   });
 
   if (error) {
-    throw error;
+    throw error; // Let controller handle error
   }
 
   return data;
@@ -21,7 +21,7 @@ async function register(email, password) {
   });
 
   if (error) {
-    throw error;
+    throw error; // Let controller handle error
   }
 
   return data;
