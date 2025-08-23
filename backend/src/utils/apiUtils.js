@@ -1,3 +1,28 @@
+const supabase = require('../utils/supabaseClient');
+
+async function authenticate(req, res, next) {
+
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided.' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  
+  try {
+    const { data, error } = await supabase.auth.getUser(token);
+    if (error || !data.user) {
+      return res.status(401).json({ error: 'Invalid or expired token.' });
+    }
+    req.user = data.user; // Attach user info to request
+    next();
+  } catch (err) {
+    return res.status(500).json({ error: 'Authentication failed.' });
+  }
+}
+
+
 async function omdbFetch(imdb_id) {
   const omdbApiKey = process.env.OMBD_API_KEY;
 
@@ -75,6 +100,17 @@ function handleApiError(err, res, next) {
     return res.status(504).json({ error: "Upstream timeout contacting TMDB." });
   }
 
+  // 400 bad request error handling
+  if(err.status === 400 || err.statusCode === 400) {
+    return res.status(400).json({ error: err.message || "Bad request to server." });
+  }
+
+  // 500 internal server error handling
+  if (err.status === 500 || err.statusCode === 500) {
+    console.error("API Error:", err.message);
+    return res.status(500).json({ error: err.message || "Internal server error" });
+  }
+
   // 502 bad gateway error handling
   if (err.upstream) {
     return res.status(err.status || 502).json({
@@ -86,4 +122,4 @@ function handleApiError(err, res, next) {
   next(err);
 }
 
-module.exports = { omdbFetch, tmdbFetch, handleApiError };
+module.exports = { omdbFetch, tmdbFetch, handleApiError, authenticate };
