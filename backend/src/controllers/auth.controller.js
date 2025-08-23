@@ -1,5 +1,5 @@
 // Pull in requied modules
-const { login, register } = require("../service/auth.service");
+const { login, register, logout } = require("../service/auth.service");
 const { handleApiError } = require("../utils/apiUtils");
 const { isValidEmail, isValidPassword } = require("../utils/validation");
 
@@ -16,6 +16,15 @@ async function loginUser(req, res, next) {
       message: "Account logged in",
       user: data.user
     });
+  } catch (err) {
+    handleApiError(err, res, next);
+  }
+}
+
+async function logoutUser(req, res, next) {
+  try {
+    await logout();
+    res.status(200).json({ message: "User signed out" });
   } catch (err) {
     handleApiError(err, res, next);
   }
@@ -42,4 +51,4 @@ async function registerUser(req, res, next) {
 
 
 
-module.exports = { loginUser, registerUser };
+module.exports = { loginUser, registerUser, logoutUser };

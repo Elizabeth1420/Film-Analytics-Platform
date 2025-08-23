@@ -27,4 +27,13 @@ async function register(email, password) {
   return data;
 }
 
-module.exports = { login, register };
+async function logout() {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    throw error; // Let controller handle error
+  }
+
+}
+
+module.exports = { login, register, logout};
