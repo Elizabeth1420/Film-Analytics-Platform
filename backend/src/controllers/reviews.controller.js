@@ -20,4 +20,4 @@ async function getReviews(req, res, next) {
   }
 }
 
-exports.getReviews = getReviews;
+module.exports.getReviews = getReviews;

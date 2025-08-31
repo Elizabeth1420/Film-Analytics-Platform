@@ -1,7 +1,8 @@
-// Pull in requied modules
+// Pull in required modules
 const { login, register, logout } = require("../service/auth.service");
 const { handleApiError } = require("../utils/apiUtils");
 const { isValidEmail, isValidPassword } = require("../utils/validation");
+
 
 async function loginUser(req, res, next) {
   const { email, password } = req.body;
@@ -14,7 +15,7 @@ async function loginUser(req, res, next) {
     const data = await login(email, password);
     res.status(201).json({
       message: "Account logged in",
-      user: data.user
+      user: data
     });
   } catch (err) {
     handleApiError(err, res, next);
@@ -31,24 +32,22 @@ async function logoutUser(req, res, next) {
 }
 
 async function registerUser(req, res, next) {
-  const { email, password } = req.body;
+  const {display_name, email, password } = req.body;
 
-
-  if (!isValidEmail(email) || !isValidPassword(password)) {
-    return res.status(400).json({ error: "Email or password invalid or missing." });
+  if (!isValidEmail(email) || !isValidPassword(password) || !display_name || display_name.trim() === "") {
+    return res.status(400).json({ error: "Display name, Email, or password invalid or missing." });
   }
 
   try {
-    const data = await register(email, password);
+    const data = await register(display_name, email, password);
     res.status(201).json({
       message: "Account created",
-      user: data.user
+      data: data
     });
   } catch (err) {
     handleApiError(err, res, next);
   }
 }
-
 
 
 module.exports = { loginUser, registerUser, logoutUser };

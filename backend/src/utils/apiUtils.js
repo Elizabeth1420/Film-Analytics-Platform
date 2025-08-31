@@ -101,7 +101,7 @@ async function tmdbFetch(url) {
 function handleApiError(err, res, next) {
   // 504 timeout error handling
   if (err.name === "AbortError") {
-    return res.status(504).json({ error: "Upstream timeout contacting TMDB." });
+    return res.status(504).json({ error: "Upstream timeout contacting server." });
   }
 
   // 400 bad request error handling
@@ -109,16 +109,27 @@ function handleApiError(err, res, next) {
     return res.status(400).json({ error: err.message || "Bad request to server." });
   }
 
+  if(err.status === 404 || err.statusCode === 404) {
+    return res.status(404).json({ error: err.message || "Not found." });
+  }
+
+  if(err.status === 409 || err.statusCode === 409) {
+    return res.status(409).json({ error: err.message || "Unauthorized request." });
+  }
+
+  if(err.status === 429 || err.statusCode === 429) {
+    return res.status(429).json({ error: err.message || "Too many requests - rate limit exceeded." });
+  }
+
   // 500 internal server error handling
   if (err.status === 500 || err.statusCode === 500) {
-    console.error("API Error:", err.message);
     return res.status(500).json({ error: err.message || "Internal server error" });
   }
 
   // 502 bad gateway error handling
   if (err.upstream) {
     return res.status(err.status || 502).json({
-      error: "Upstream TMDB error",
+      error: "Upstream server error",
       status: err.status,
       data: err.data,
     });
