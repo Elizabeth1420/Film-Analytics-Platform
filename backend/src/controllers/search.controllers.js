@@ -1,6 +1,6 @@
 // Pull in required modules
 const searchService = require("../service/search.service");
-const parseIntWithFallback = require("../utils/number");
+const { parseIntWithFallback } = require("../utils/validation");
 const { handleApiError } = require("../utils/apiUtils");
 
 async function getMovieByName(req, res, next) {

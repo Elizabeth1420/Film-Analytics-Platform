@@ -22,6 +22,8 @@ app.use(express.json());
 // Expose the movies routes
 app.use('/api/movies', require('./routes/movies.routes'));
 
+app.use('/api/auth', require('./routes/users.routes'));
+
 
 app.use((err, req, res, next) => {
   console.error(err);

@@ -1,3 +1,32 @@
+const supabase = require('../utils/supabaseClient');
+
+async function authenticate(req, res, next) {
+
+  // Try to get our auth token - if we didn't get on then return 401.
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided.' });
+  }
+
+  // Extract our auth bearer token
+  const token = authHeader.split(' ')[1];
+  
+
+  try {
+    const { data, error } = await supabase.auth.getUser(token);
+    if (error || !data.user) {
+      return res.status(401).json({ error: 'Invalid or expired token.' });
+    }
+    
+    // Attach user info to request
+    req.user = data.user; 
+    next();
+  } catch (err) {
+    handleApiError(err, res, next);
+  }
+}
+
+
 async function omdbFetch(imdb_id) {
   const omdbApiKey = process.env.OMBD_API_KEY;
 
@@ -72,13 +101,35 @@ async function tmdbFetch(url) {
 function handleApiError(err, res, next) {
   // 504 timeout error handling
   if (err.name === "AbortError") {
-    return res.status(504).json({ error: "Upstream timeout contacting TMDB." });
+    return res.status(504).json({ error: "Upstream timeout contacting server." });
+  }
+
+  // 400 bad request error handling
+  if(err.status === 400 || err.statusCode === 400) {
+    return res.status(400).json({ error: err.message || "Bad request to server." });
+  }
+
+  if(err.status === 404 || err.statusCode === 404) {
+    return res.status(404).json({ error: err.message || "Not found." });
+  }
+
+  if(err.status === 409 || err.statusCode === 409) {
+    return res.status(409).json({ error: err.message || "Unauthorized request." });
+  }
+
+  if(err.status === 429 || err.statusCode === 429) {
+    return res.status(429).json({ error: err.message || "Too many requests - rate limit exceeded." });
+  }
+
+  // 500 internal server error handling
+  if (err.status === 500 || err.statusCode === 500) {
+    return res.status(500).json({ error: err.message || "Internal server error" });
   }
 
   // 502 bad gateway error handling
   if (err.upstream) {
     return res.status(err.status || 502).json({
-      error: "Upstream TMDB error",
+      error: "Upstream server error",
       status: err.status,
       data: err.data,
     });
@@ -86,4 +137,4 @@ function handleApiError(err, res, next) {
   next(err);
 }
 
-module.exports = { omdbFetch, tmdbFetch, handleApiError };
+module.exports = { omdbFetch, tmdbFetch, handleApiError, authenticate };
