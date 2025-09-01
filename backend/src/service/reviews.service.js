@@ -6,9 +6,8 @@ async function fetchReviews(id, page = 1) {
     page: String(page),
   });
 
-  const TMDB_BASE = "https://api.themoviedb.org/3/movie/";
-  const reviewsUrl = `${TMDB_BASE}${id}/reviews?${params.toString()}`;
-  const externalIdsUrl = `${TMDB_BASE}${id}/external_ids`;
+  const reviewsUrl = `movie/${id}/reviews?${params.toString()}`;
+  const externalIdsUrl = `movie/${id}/external_ids`;
 
   let reviews, external_ids, ratings;
   try {

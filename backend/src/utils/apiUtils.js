@@ -1,4 +1,5 @@
 const supabase = require('../utils/supabaseClient');
+const baseUrls = require('../config');
 
 async function authenticate(req, res, next) {
 
@@ -9,15 +10,14 @@ async function authenticate(req, res, next) {
   }
 
   // Extract our auth bearer token
-  const token = authHeader.split(' ')[1];
-  
+  const token = authHeader.split(' ')[1]; 
 
   try {
     const { data, error } = await supabase.auth.getUser(token);
     if (error || !data.user) {
       return res.status(401).json({ error: 'Invalid or expired token.' });
     }
-    
+        
     // Attach user info to request
     req.user = data.user; 
     next();
@@ -28,9 +28,9 @@ async function authenticate(req, res, next) {
 
 
 async function omdbFetch(imdb_id) {
-  const omdbApiKey = process.env.OMBD_API_KEY;
 
-  const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${imdb_id}`;
+  const omdbApiKey = process.env.OMBD_API_KEY;
+  const omdbUrl = `${baseUrls.OMDB_BASE_URL}${omdbApiKey}&i=${imdb_id}`;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10_000);
@@ -66,7 +66,7 @@ async function tmdbFetch(url) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10_000);
 
-  const resp = await fetch(url, {
+  const resp = await fetch(`${baseUrls.TMDB_BASE_URL}${url}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

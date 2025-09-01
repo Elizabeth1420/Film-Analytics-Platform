@@ -1,13 +1,8 @@
 const { tmdbFetch } = require("../utils/apiUtils");
 
-async function fetchTrailer(id) {
-  const params = new URLSearchParams({
-    language: "en-US",
-  });
+async function fetchTrailer(movie_id) {  
 
-  const TMDB_BASE = "https://api.themoviedb.org/3/movie/";
-  const reviewsUrl = `${TMDB_BASE}${id}/videos?${params.toString()}`;
-
+  const reviewsUrl = `movie/${movie_id}/videos?language=en-US`;
   let response;
   try {
     response = await tmdbFetch(reviewsUrl);
@@ -24,18 +19,19 @@ async function fetchTrailer(id) {
       item.site === "YouTube"
   );
 
-  // If a trailer is found, return its details
-  if (trailer) {
-    return {
-      id: id,
-      youtube_key: trailer.key,
-      name: trailer.name,
-      site: trailer.site,
-      type: trailer.type,
-    };
+  // Return a message if no trailer is found
+  if (!trailer) {
+    return { status: 404, message: "Trailer not found." };
   }
 
-  return { message: "Trailer not found" }; // Return a message if no trailer is found
+  return {
+    id: movie_id,
+    youtube_key: trailer.key,
+    name: trailer.name,
+    site: trailer.site,
+    type: trailer.type,
+  };
+
 }
 
 module.exports.fetchTrailer = fetchTrailer;

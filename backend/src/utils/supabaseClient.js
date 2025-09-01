@@ -1,5 +1,8 @@
+// Pull in required modules
 const { createClient } = require('@supabase/supabase-js');
-const supabaseUrl = process.env.SUPABASE_URL;
+const baseUrls = require('../config');
+
+// Create a single supabase client for use throughout the app
 const supabaseKey = process.env.SUPABASE_SECRET_DEFAULT_KEY; 
-const supabase = createClient('https://imbvxuzmecbzylydhehk.supabase.co', supabaseKey);
+const supabase = createClient(baseUrls.SUPABASE_URL, supabaseKey);
 module.exports = supabase;
