@@ -1,8 +1,8 @@
 const express = require('express');
 
+const { handleApiError } = require('./utils/apiUtils');
 
 // Load environment variables from .env file
-
 require('dotenv').config();
 
 // Check for required environment variables
@@ -15,19 +15,19 @@ requiredEnv.forEach((key) => {
 });
 
 
-
 const app = express();
 app.use(express.json());
 
 // Expose the movies routes
 app.use('/api/movies', require('./routes/movies.routes'));
 
+// Expose the auth routes
 app.use('/api/auth', require('./routes/users.routes'));
 
-
+// Catch-all error handler
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ error: 'Unexpected server error' });
+  handleApiError(err, res, next);
 });
 
 module.exports = app;
