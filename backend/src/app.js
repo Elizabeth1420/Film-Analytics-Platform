@@ -1,19 +1,9 @@
 const express = require('express');
-
 const { handleApiError } = require('./utils/apiUtils');
 
-// Load environment variables from .env file
-require('dotenv').config();
-
-// Check for required environment variables
-const requiredEnv = ['TMDB_BEARER_TOKEN', 'OMBD_API_KEY'];
-requiredEnv.forEach((key) => {
-  if (!process.env[key]) {
-    console.error(`Missing required environment variable: ${key}`);
-    process.exit(1);
-  }
-});
-
+// Validate environment variables are set
+const EnvHelper = require('./utils/envHelper');
+EnvHelper.validate();
 
 const app = express();
 app.use(express.json());

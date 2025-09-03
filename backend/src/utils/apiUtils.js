@@ -1,5 +1,6 @@
 const supabase = require('../utils/supabaseClient');
 const baseUrls = require('../config');
+const EnvHelper = require('../utils/envHelper');
 
 async function authenticate(req, res, next) {
 
@@ -29,8 +30,7 @@ async function authenticate(req, res, next) {
 
 async function omdbFetch(imdb_id) {
 
-  const omdbApiKey = process.env.OMBD_API_KEY;
-  const omdbUrl = `${baseUrls.OMDB_BASE_URL}${omdbApiKey}&i=${imdb_id}`;
+  const omdbUrl = `${baseUrls.OMDB_BASE_URL}${EnvHelper.OMBD_API_KEY}&i=${imdb_id}`;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10_000);
@@ -61,7 +61,6 @@ async function omdbFetch(imdb_id) {
 }
 
 async function tmdbFetch(url) {
-  const token = process.env.TMDB_BEARER_TOKEN;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10_000);
@@ -69,7 +68,7 @@ async function tmdbFetch(url) {
   const resp = await fetch(`${baseUrls.TMDB_BASE_URL}${url}`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${EnvHelper.TMDB_BEARER_TOKEN}`,
       "Content-Type": "application/json;charset=utf-8",
     },
     signal: controller.signal,
