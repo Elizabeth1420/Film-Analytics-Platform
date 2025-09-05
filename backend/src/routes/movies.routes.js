@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const trendingController = require('../controllers/trending.controllers');
-const searchController = require('../controllers/search.controllers');
+const trendingController = require('../controllers/trending.controller');
+const searchController = require('../controllers/search.controller');
 const reviewsController = require('../controllers/reviews.controller');
-const trailerController = require('../controllers/trailer.controllers');
+const trailerController = require('../controllers/trailer.controller');
 const internalMoviesController = require('../controllers/internalMovies.Controller');
 const internalReviewsController = require('../controllers/internalReviews.controller');
 const { authenticate } = require('../utils/apiUtils');
