@@ -1,6 +1,6 @@
 const { tmdbFetch, omdbFetch } = require("../utils/apiUtils");
 
-async function fetchReviews(id, page = 1) {
+async function fetchReviews(id, page) {
   const params = new URLSearchParams({
     language: "en-US",
     page: String(page),
@@ -21,7 +21,7 @@ async function fetchReviews(id, page = 1) {
   const combinedReviewsRatings = {
     tmdb_id: reviews.id,
     imdb_id: external_ids.imdb_id,
-    tmdb_page: reviews.page,
+    page: reviews.page,
     ratings: ratings.Ratings,
     reviews: reviews.results,
     total_pages: reviews.total_pages,

@@ -1,13 +1,13 @@
 // Pull in required modules
 const { login, register, logout } = require("../service/auth.service");
 const { handleApiError } = require("../utils/apiUtils");
-const { isValidEmail, isValidPassword } = require("../utils/validation");
+const validation = require("../utils/validation");
 
 
 async function loginUser(req, res, next) {
   const { email, password } = req.body;
 
-   if (!isValidEmail(email) || !isValidPassword(password)) {
+   if (!validation.isValidEmail(email) || !validation.isValidPassword(password)) {
     return res.status(400).json({ error: "Email or password invalid or missing." });
   }
 
@@ -32,9 +32,9 @@ async function logoutUser(req, res, next) {
 }
 
 async function registerUser(req, res, next) {
-  const {display_name, email, password } = req.body;
+  const { display_name, email, password } = req.body;
 
-  if (!isValidEmail(email) || !isValidPassword(password) || !display_name || display_name.trim() === "") {
+  if (!validation.isValidEmail(email) || !validation.isValidPassword(password) || !display_name || display_name.trim() === "") {
     return res.status(400).json({ error: "Display name, Email, or password invalid or missing." });
   }
 

@@ -1,20 +1,21 @@
 // Pull in required modules
 const reviewsService = require("../service/reviews.service");
 const { handleApiError } = require("../utils/apiUtils");
-const { parseIntWithFallback } = require("../utils/validation");
+const validation = require("../utils/validation");
 
 
 async function getReviews(req, res, next) {
-  try {
-    const movieId = req.params.id;
-    const page = Math.min(
-      Math.max(parseIntWithFallback(req.query.page, 1), 1),
-      500
-    );
 
-    const data = await reviewsService.fetchReviews(movieId, page);
-    res.status(200).json(data);
-    
+  const movieId = req.params.id;
+  if (!validation.isValidPositiveInteger(movieId)) {
+    return res.status(400).json({ error: "A valid movie ID is required." });
+  }
+
+  const pageNumber = validation.validatePageNumber(req.query.page);
+
+  try {  
+    const reviews = await reviewsService.fetchReviews(movieId, pageNumber);
+    res.status(200).json(reviews);    
   } catch (err) {
     handleApiError(err, res, next);
   }
