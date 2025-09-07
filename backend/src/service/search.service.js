@@ -10,10 +10,8 @@ async function fetchSearch(query, year, page = 1) {
     page: String(page),
   });
   
-  const TMDB_BASE = "https://api.themoviedb.org/3/search/movie";
-  const url = `${TMDB_BASE}?${params.toString()}`;
-
-  return await tmdbFetch(url);
+  const searchUrl = `search/movie?${params.toString()}`;
+  return await tmdbFetch(searchUrl);
 }
 
 module.exports.fetchSearch = fetchSearch;

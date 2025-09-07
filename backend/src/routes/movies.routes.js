@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const trendingController = require('../controllers/trending.controllers');
-const searchController = require('../controllers/search.controllers');
+const trendingController = require('../controllers/trending.controller');
+const searchController = require('../controllers/search.controller');
 const reviewsController = require('../controllers/reviews.controller');
-const trailerController = require('../controllers/trailer.controllers');
+const trailerController = require('../controllers/trailer.controller');
 const internalMoviesController = require('../controllers/internalMovies.Controller');
 const internalReviewsController = require('../controllers/internalReviews.controller');
 const { authenticate } = require('../utils/apiUtils');
@@ -17,7 +17,12 @@ router.delete('/internal/:id', authenticate, internalMoviesController.deleteMovi
 router.post('/internal', authenticate, internalMoviesController.addInternalMovie);
 
 // "Public" routes for fetching data from TMDB/OMDB
-router.get('/trending', trendingController.getTrending);
+
+// /trending/week
+router.get('/trending/week', (req, res, next) => trendingController.getTrending(req, res, next, 'week'));
+
+// /trending/day
+router.get('/trending/day', (req, res, next) => trendingController.getTrending(req, res, next, 'day'));
 router.get('/search', searchController.getMovieByName);
 router.get('/:id/reviews', reviewsController.getReviews);
 router.get('/:id/trailer', trailerController.getTrailer);

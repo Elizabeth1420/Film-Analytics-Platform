@@ -1,14 +1,13 @@
 const { tmdbFetch, omdbFetch } = require("../utils/apiUtils");
 
-async function fetchReviews(id, page = 1) {
+async function fetchReviews(id, page) {
   const params = new URLSearchParams({
     language: "en-US",
     page: String(page),
   });
 
-  const TMDB_BASE = "https://api.themoviedb.org/3/movie/";
-  const reviewsUrl = `${TMDB_BASE}${id}/reviews?${params.toString()}`;
-  const externalIdsUrl = `${TMDB_BASE}${id}/external_ids`;
+  const reviewsUrl = `movie/${id}/reviews?${params.toString()}`;
+  const externalIdsUrl = `movie/${id}/external_ids`;
 
   let reviews, external_ids, ratings;
   try {
@@ -22,7 +21,7 @@ async function fetchReviews(id, page = 1) {
   const combinedReviewsRatings = {
     tmdb_id: reviews.id,
     imdb_id: external_ids.imdb_id,
-    tmdb_page: reviews.page,
+    page: reviews.page,
     ratings: ratings.Ratings,
     reviews: reviews.results,
     total_pages: reviews.total_pages,
