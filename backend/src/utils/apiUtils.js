@@ -8,7 +8,7 @@ async function authenticate(req, res, next) {
   // Try to get our auth token - if we didn't get on then return 401.
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(HTTP_STATUS.Unauthorized).json({ error: 'No token provided.' });
+    return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: 'No token provided.' });
   }
 
   // Extract our auth bearer token
@@ -17,7 +17,7 @@ async function authenticate(req, res, next) {
   try {
     const { data, error } = await supabase.auth.getUser(token);
     if (error || !data.user) {
-      return res.status(HTTP_STATUS.Unauthorized).json({ error: 'Invalid or expired token.' });
+      return res.status(HTTP_STATUS.UNAUTHORIZED).json({ error: 'Invalid or expired token.' });
     }
         
     // Attach user info to request
