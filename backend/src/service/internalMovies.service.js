@@ -1,4 +1,5 @@
 const supabase = require("../utils/supabaseClient");
+const HTTP_STATUS = require("../utils/statusCodes");
 
 async function fetchInternalMovies() {
   const { data, error } = await supabase.from("movies").select("*");
@@ -32,7 +33,7 @@ async function deleteMovie(movieId) {
     .single();
 
   if (fetchError || !movie) {
-    throw { status: 404, message: "Movie not found." };
+    throw { status: HTTP_STATUS.NOT_FOUND, message: "Movie not found." };
   }
 
   const { error: deleteError } = await supabase

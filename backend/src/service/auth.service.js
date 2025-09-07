@@ -1,5 +1,6 @@
 // Pull in required modules
 const supabase = require("../utils/supabaseClient");
+const HTTP_STATUS = require("../utils/statusCodes");
 
 async function login(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -29,7 +30,7 @@ async function register(display_name, email, password) {
     Array.isArray(data.user.identities) &&
     data.user.identities.length === 0
   ) {
-    throw { status: 409, message: "Email already registered." };
+    throw { status: HTTP_STATUS.CONFLICT, message: "Email already registered." };
   }
 
   // Add user display name to user_profiles table

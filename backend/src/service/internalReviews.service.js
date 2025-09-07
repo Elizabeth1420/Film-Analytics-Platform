@@ -1,4 +1,5 @@
 const supabase = require("../utils/supabaseClient");
+const HTTP_STATUS = require("../utils/statusCodes");
 
 async function fetchInternalReviews(movie_id) {
   // 1. Get all reviews for the movie
@@ -53,7 +54,7 @@ async function postReview(movieId, review, imdb_rating, rotten_tomatoes_rating, 
   if (profileError) throw profileError;
 
   if (!profileData) {
-    throw { status: 403, message: "User profile not found." };
+    throw { status: HTTP_STATUS.NOT_FOUND, message: "User profile not found." };
   }
  
 
@@ -70,6 +71,7 @@ async function postReview(movieId, review, imdb_rating, rotten_tomatoes_rating, 
 
   if (reviewError) throw reviewError;
 
+  // 4) Insert rating
   const { data: ratingData, error: ratingError } = await supabase
     .from("ratings")
     .insert([

@@ -1,16 +1,17 @@
 const { handleApiError } = require("../utils/apiUtils");
 const validation = require("../utils/validation");
 const internalReviewsService = require("../service/internalReviews.service");
+const HTTP_STATUS = require("../utils/statusCodes");
 
 async function getReviews(req, res, next) {
   const movieId = req.query.movie_id;
   if (!validation.isValidPositiveInteger(movieId)) {
-    return res.status(400).json({ error: "A valid movie ID is required." });
+    return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: "A valid movie ID is required." });
   }
 
   try {
     const data = await internalReviewsService.fetchInternalReviews(movieId);
-    res.status(200).json(data);
+    res.status(HTTP_STATUS.OK).json(data);
   } catch (err) {
     handleApiError(err, res, next);
   }
@@ -26,7 +27,7 @@ async function addReview(req, res, next) {
       review.rotten_tomatoes,
       review.metacritic
     );
-    res.status(200).json(data);
+    res.status(HTTP_STATUS.OK).json(data);
   } catch (err) {
     handleApiError(err, res, next);
   }
