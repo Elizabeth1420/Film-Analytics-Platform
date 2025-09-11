@@ -1,0 +1,249 @@
+/* ===== Base reset (modern, minimal) ===== */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ===== Design tokens (Light palette – recommended) ===== */
+:root {
+  --bg: #F8FAFC;             /* page background */
+  --surface: #FFFFFF;        /* cards */
+  --elev: #F1F5F9;           /* elevated/alt surface */
+  --text: #0F172A;           /* primary text */
+  --text-muted: #475569;     /* muted text */
+  --border: #E2E8F0;         /* borders */
+
+  --accent: #D4AF37;         /* gold */
+  --accent-hover: #B38E1D;   /* gold hover */
+  --accent-tint: #F2D16B;    /* subtle gold chip */
+
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --error: #DC2626;
+
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(2, 8, 23, 0.06);
+
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ===== Layout helpers ===== */
+.container {
+  width: min(1100px, 100%);
+  margin-inline: auto;
+  padding: 24px;
+}
+
+.center {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid.cards {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 1200px) {
+  .grid.cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 960px) {
+  .grid.cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .grid.cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Utilities */
+.muted {
+  color: var(--text-muted);
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+/* ===== Components (base) ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.input,
+.select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+}
+
+.input:focus,
+.select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  /* Fallback if color-mix is unsupported */
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.35);
+  /* Preferred */
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--elev);
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(0.98);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111827;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--accent-tint);
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f3f8 25%,
+    #e7ebf2 37%,
+    #f0f3f8 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 10px;
+  min-height: 120px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* ===== Header (app pages, not login) ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchbar {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  max-width: 580px;
+  margin-inline: 24px;
+}
+

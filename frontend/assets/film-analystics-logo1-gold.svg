@@ -1,0 +1,36 @@
+<svg width="512" height="160" viewBox="0 0 512 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Film Analystics logo - clapperboard gold and white">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C08E2E"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Clapperboard -->
+  <g transform="translate(16,20)">
+    <!-- Board body -->
+    <rect x="0" y="36" width="120" height="70" rx="10" fill="#FFFFFF" stroke="url(#g1)" stroke-width="4"/>
+    <!-- Bars inside -->
+    <rect x="14" y="86" width="14" height="20" rx="3" fill="#D4AF37"/>
+    <rect x="34" y="76" width="14" height="30" rx="3" fill="#D4AF37"/>
+    <rect x="54" y="66" width="14" height="40" rx="3" fill="#D4AF37"/>
+    <rect x="74" y="52" width="14" height="54" rx="3" fill="#D4AF37"/>
+    <rect x="94" y="44" width="14" height="62" rx="3" fill="#C08E2E"/>
+    <!-- Top clap -->
+    <rect x="0" y="16" width="120" height="26" rx="8" fill="url(#g1)"/>
+    <!-- Diagonal stripes -->
+    <g transform="translate(0,16)" opacity="0.7">
+      <polygon points="0,0 20,0 0,26" fill="#FFFFFF"/>
+      <polygon points="24,0 44,0 24,26" fill="#FFFFFF"/>
+      <polygon points="48,0 68,0 48,26" fill="#FFFFFF"/>
+      <polygon points="72,0 92,0 72,26" fill="#FFFFFF"/>
+      <polygon points="96,0 116,0 96,26" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(160,88)">
+    <text x="0" y="0" font-family="Inter,ui-sans-serif,system-ui,Segoe UI,Arial" font-size="36" font-weight="800" fill="#C08E2E">Film</text>
+    <text x="95" y="0" font-family="Inter,ui-sans-serif,system-ui,Segoe UI,Arial" font-size="36" font-weight="900" fill="#D4AF37">Analystics</text>
+  </g>
+</svg>

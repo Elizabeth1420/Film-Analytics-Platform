@@ -1,1 +1,52 @@
- 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in • Film Analytics</title>
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+</head>
+<body class="auth-bg center">
+  <main>
+    <section class="card auth-card" aria-labelledby="loginTitle">
+      <header class="auth-brand">
+        <img src="./assets/Logo.png" alt="" width="28" height="28" />
+        <h1 id="loginTitle">Sign in</h1>
+      </header>
+
+      <p class="muted small auth-intro">
+        Access trending movies, ratings and reviews. Admin tools available after sign-in.
+      </p>
+
+      <form class="form-grid" id="loginForm" novalidate>
+        <label>
+          Email
+          <input class="input" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+        </label>
+
+        <label>
+          Password
+          <input class="input" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" />
+        </label>
+
+        <div class="auth-actions">
+          <label class="small muted rem">
+            <input type="checkbox" name="remember" /> Remember me
+          </label>
+          <a class="small link-muted" href="#">Forgot password?</a>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Sign in</button>
+
+        <!-- purely visual now; JS will toggle this later -->
+        <p id="loginError" class="error" aria-live="polite" hidden>Invalid email or password.</p>
+      </form>
+    </section>
+
+    <p class="small muted legal">
+      By continuing you agree to the terms. Data sources: TMDb & OMDb.
+    </p>
+  </main>
+</body>
+</html>
