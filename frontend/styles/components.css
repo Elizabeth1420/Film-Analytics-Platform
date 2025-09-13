@@ -166,11 +166,6 @@
   gap: 10px;
   margin-bottom: 8px;
 }
-.brand img {
-  height: 24px;     
-  width: auto;
-  display: block;   
-}
 
 .auth-intro {
   margin: 6px 0 14px 0;
