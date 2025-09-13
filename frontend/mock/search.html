@@ -3,9 +3,85 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Mock</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
  </head>
  <body>
+    <header class = "site-header">
+        <div class = "inner">
+            <a class = "brand" href="#">Film Analytics</a>
+            <form class = "searchbar" role = "search" aria-label = "Search movies, actors, directors...">
+                <input class = "input" type = "search" placeholder = "Search..." aria-label = "Search movies, actors, directors..." />
+                <button class = "btn btn-primary" type = "submit">Search</button>
+            </form>
+            <nav class = "row">
+                <a href = "home.html"> Home mock </a>
+            </nav>
+        </div>
+    </header>
     
+    
+    <main class = "container">
+        <section class = "cards" aria-labelledby="searchHeading">
+            <h1 id ="searchHeading">Search</h1>
+
+            <form class = "row filters" role = "search" aria-label = "Search by Title and Year" novalidate>
+                <label class = "sr-only" for = "q" >Title</label>
+                <input id = "q" class = "input" name="q" placeholder="Search a movie title..." required />
+
+                <label class = "sr-only" for = "year">Year</label>
+                <input id = "year" class = "input" name="year" placeholder = "Year (e.g. 2024)" inputmode="numeric" pattern="[0-9]*" />
+
+                <button class = "btn btn-primary" type = "submit">Search</button>
+            </form>
+
+            <p class = "small muted" id = "searchHelp" style = "margin-top:8px">
+                Year is required to be above 1800 and below 2100.
+            </p>
+
+
+        </section>
+
+        <div class="grid cards" aria-live="polite">
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/inception.jpg" alt="Inception (2010) poster placeholder" />
+          <div class="body">
+            <h3>Inception <span class="meta">(2010)</span></h3>
+            <div class="badges"><span class="badge">TMDb • 8.3</span></div>
+          </div>
+        </article>
+
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/inception.jpg" alt="Inception (2010) poster placeholder" />
+          <div class="body">
+            <h3>Inception <span class="meta">(2010)</span></h3>
+            <div class="badges"><span class="badge">TMDb • 8.3</span></div>
+          </div>
+        </article>
+
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/inception.jpg" alt="Inception (2010) poster placeholder" />
+          <div class="body">
+            <h3>Inception <span class="meta">(2010)</span></h3>
+            <div class="badges"><span class="badge">TMDb • 8.3</span></div>
+          </div>
+        </article>
+
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/inception.jpg" alt="Inception (2010) poster placeholder" />
+          <div class="body">
+            <h3>Inception <span class="meta">(2010)</span></h3>
+            <div class="badges"><span class="badge">TMDb • 8.3</span></div>
+          </div>
+        </article>
+      </div>
+
+      <nav class = "pagination" aria-label="Pagination">
+        <button class="btn" disabled>Previous</button>
+        <span class="small muted">Page 1 of 10</span>
+        <button class="btn ">Next</button>
+
+    </main>
  </body>
  </html>
