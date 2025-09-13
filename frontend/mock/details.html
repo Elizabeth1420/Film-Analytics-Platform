@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Movie Details</title>
+
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+</head>
+<body>
+    <header class = "site-header">
+        <div class = "inner">
+            <a class = "brand" href="./home.html">Film Analytics</a>
+            <form class = "searchbar" role = "search" aria-label = "Search movies, actors, directors...">
+                <input class = "input" type = "search" placeholder = "Search..." aria-label = "Search movies, actors, directors..." />
+                <button class = "btn btn-primary" type = "submit">Search</button>
+            </form>
+            <nav class = "row">
+                <a href = "search.html"> Search mock </a>
+            </nav>
+        </div>
+
+
+    </header>
+
+    <main class = "container">
+        <section class = "card" aria-labelledby="MovieTitleHeading">
+
+             <section class="card" aria-labelledby="movieTitleHeading">
+      <div class="details-grid">
+        <div class="poster">
+          <img src="../assets/placeholder/dark knight.jpg" alt="Poster for The Dark Knight" />
+        </div>
+        <div>
+          <h1 id="movieTitleHeading">The Dark Knight <span class="muted">(2008)</span></h1>
+          <p class="muted">Directed by Christopher Nolan</p>
+
+          <div class="badges" style="margin-top:10px">
+            <span class="badge">IMDb 9.0</span>
+            <span class="badge">RT 94%</span>
+            <span class="badge">MC 84</span>
+          </div>
+
+          <p class="small muted" style="margin-top:12px">
+            Action • Crime • 152m
+          </p>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="card" aria-labelledby="trailerHeading">
+      <h2 id="trailerHeading">Trailer</h2>
+      
+      <button class="trailer-thumb" type="button">
+        <img src="https://img.youtube.com/vi/EXeTwQWrcwY/hqdefault.jpg" alt="Trailer thumbnail for The Dark Knight" />
+        <span class="play-badge">▶</span>
+      </button>
+    </section>
+
+    
+    <section class="card" aria-labelledby="reviewsHeading">
+      <h2 id="reviewsHeading">Reviews</h2>
+
+      <article class="review">
+        <h3 class="small">Chris • <span class="muted">8/10</span></h3>
+        <p>Electric performances and relentless pacing. Ledger’s Joker steals every scene.</p>
+      </article>
+
+      <article class="review">
+        <h3 class="small">Morgan • <span class="muted">9/10</span></h3>
+        <p>Thoughtful, tense, and visually striking—one of the best comic adaptations.</p>
+      </article>
+
+      <nav class="pagination" aria-label="Reviews pagination">
+        <button class="btn" disabled>Prev</button>
+        <span class="small muted">Page 1 of 5</span>
+        <button class="btn">Next</button>
+      </nav>
+    </section>
+    </main>
+</body>
+</html>
