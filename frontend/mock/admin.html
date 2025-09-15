@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Mock</title>
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+</head>
+<body>
+   <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="./home.html">Film Analytics</a>
+      <form class="searchbar" role="search" aria-label="Search movies">
+        <input class="input" placeholder="Search a movie title…" />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      <nav class="row">
+        <a href="./search.html">Search mock</a>
+        <a href="./details.html">Details mock</a>
+      </nav>
+    </div>
+    </header>
+    <main class = "container">
+    <section class="card" aria-labelledby="formHeading">
+      <h2 id="formHeading">Add / Update Movie</h2>
+      <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 8px;">
+        <label>Title <input class="input" placeholder="The Dark Knight" /></label>
+        <label>Release date <input class="input" type="date" /></label>
+        <label>Director <input class="input" placeholder="Christopher Nolan" /></label>
+        <label>Genre <input class="input" placeholder="Action, Crime" /></label>
+        <label>Runtime (min) <input class="input" type="number" placeholder="152" /></label>
+        <label>Box office (USD) <input class="input" type="number" placeholder="1000000" /></label>
+        <label>Budget (USD) <input class="input" type="number" placeholder="500000" /></label>
+        <label>Award wins <input class="input" type="number" placeholder="3" /></label>
+        <label>Award nominations <input class="input" type="number" placeholder="5" /></label>
+      </div>
+      <div class="row" style="justify-content:flex-end; gap: 10px; margin-top: 12px;">
+        <button class="btn">Reset</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+      <p class="small muted" style="margin-top:8px">
+        Note: Upsert on <strong>title + release_date</strong>.
+      </p>
+    </section>
+
+    
+    <section class="card" aria-labelledby="listHeading">
+      <header class="row" style="justify-content: space-between; margin-bottom: 8px;">
+        <h2 id="listHeading">Your Movies</h2>
+        <span class="small muted">3 items</span>
+      </header>
+
+      <div class="table">
+        <div class="thead">
+          <span>Title</span><span>Release</span><span>Director</span><span>Actions</span>
+        </div>
+
+        <div class="row">
+          <span>The Dark Knight</span><span>2008-07-18</span><span>C. Nolan</span>
+          <span><button class="btn">Edit</button> <button class="btn">Delete</button></span>
+        </div>
+
+        <div class="row">
+          <span>Inception</span><span>2010-07-16</span><span>C. Nolan</span>
+          <span><button class="btn">Edit</button> <button class="btn">Delete</button></span>
+        </div>
+
+        <div class="row">
+          <span>Dune: Part Two</span><span>2024-03-01</span><span>D. Villeneuve</span>
+          <span><button class="btn">Edit</button> <button class="btn">Delete</button></span>
+        </div>
+      </div>
+    </section>
+    </main>
+</body>
+</html>
