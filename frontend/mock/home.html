@@ -1,0 +1,97 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Home</title>
+
+    <link rel="stylesheet" href="../styles/base.css" />
+    <link rel="stylesheet" href="../styles/components.css" />
+ </head>
+ <body>
+    <header class = "site-header">
+        <div class = "inner">
+            <a class = "brand" href="#">Film Analytics</a>
+            <form class = "searchbar" role = "search" aria-label = "Search movies, actors, directors...">
+                <input class = "input" type = "search" placeholder = "Search..." aria-label = "Search movies, actors, directors..." />
+                <button class = "btn btn-primary" type = "submit">Search</button>
+            </form>
+            <nav class = "row">
+                <a href = "search.html"> Search mock </a>
+            </nav>
+        </div>
+    </header>
+
+
+    <main class = "container">
+        <section class = "hero card" aria-labelledby="discoverHeading">
+            <h1 id="discoverHeading">Discover Movies</h1>
+
+            <form class = "row" role = "search" aria-label="Search Movies">
+                <label class = "sr-only" for = "home-q">Title</label>
+                <input id = "home-q" class = "input" name="q" placeholder="Search a movie title..." required />
+
+                <label class = "sr-only" for = "home-year">Year</label>
+                <input id = "home-year" class = "input" name="year" placeholder = "Year (e.g. 2024)" inputmode="numeric" pattern="[0-9]*" />
+
+                <button class = "btn btn-primary" type = "submit">Search</button>
+            </form>
+        </section>
+
+        <section class = "card" aria-labelledby="trendingHeading">
+            <header class = "row" style = "justify-content: space-between; margin-bottom: 10px;">
+                <h2 id="trendingHeading">Trending Movies</h2>
+                <a href = "search.html" class = "link-muted">See all</a> <!-- look here -->
+
+                <div class="toggle" role="tablist" aria-label="Trending time window">
+                    <button role="tab" aria-selected="true" class="active" type="button">Day</button>
+                    <button role="tab" aria-selected="false" type="button">Week</button>
+                </div>
+
+            </header>
+
+            <div class="grid cards" aria-live="polite">
+            <article class="card movie-card">
+                <img class="poster" src="../assets/placeholder/inception.jpg" alt="Inception poster placeholder" />
+                <div class="body">
+                    <h3>Inception <span class="meta">(2010)</span></h3>
+                    <div class="badges"><span class="badge">IMDb 8.8</span></div>
+                </div>
+             </article>
+
+              <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/Dune 2.jpg" alt="Dune: Part Two poster placeholder" />
+          <div class="body">
+            <h3>Dune: Part Two <span class="meta">(2024)</span></h3>
+            <div class="badges"><span class="badge">RT 92%</span></div>
+          </div>
+        </article>
+
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/interstellar.jpg" alt="Interstellar poster placeholder" />
+          <div class="body">
+            <h3>Interstellar <span class="meta">(2014)</span></h3>
+            <div class="badges"><span class="badge">MC 74</span></div>
+          </div>
+        </article>
+
+        <article class="card movie-card">
+          <img class="poster" src="../assets/placeholder/the batman.jpg" alt="The Batman poster placeholder" />
+          <div class="body">
+            <h3>The Batman <span class="meta">(2022)</span></h3>
+            <div class="badges"><span class="badge">IMDb 7.8</span></div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Pagination (static) -->
+      <nav class="pagination" aria-label="Trending pagination">
+        <button class="btn" disabled>Prev</button>
+        <span class="small muted">Page 1 of 10</span>
+        <button class="btn">Next</button>
+      </nav>
+        </section>
+            
+    </main>
+ </body>
+ </html>
