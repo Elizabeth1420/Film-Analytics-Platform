@@ -18,6 +18,14 @@ app.use('/api/movies', require('./routes/movies.routes'));
 // Expose the auth routes
 app.use('/api/auth', require('./routes/users.routes'));
 
+const path = require('path');
+const FRONTEND_DIR = path.join(__dirname, '..', '..','frontend');
+app.use(express.static(FRONTEND_DIR));
+app.get(['/', '/login'], (req, res) => {
+  const file = req.path === '/login' ? 'login.html' : 'index.html';
+  res.sendFile(path.join(FRONTEND_DIR, file));
+});
+
 // Catch-all error handler
 app.use((err, req, res, next) => {
   console.error(err);
