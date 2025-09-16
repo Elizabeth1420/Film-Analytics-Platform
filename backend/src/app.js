@@ -8,6 +8,7 @@ EnvHelper.validate();
 const app = express();
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
 // Use CORS to allow cross-origin requests
 const cors = require('cors');
 app.use(cors());
@@ -19,12 +20,17 @@ app.use('/api/movies', require('./routes/movies.routes'));
 app.use('/api/auth', require('./routes/users.routes'));
 
 const path = require('path');
-const FRONTEND_DIR = path.join(__dirname, '..', '..','frontend');
+const FRONTEND_DIR = path.join(__dirname, '..', '..', 'frontend');
 app.use(express.static(FRONTEND_DIR));
-app.get(['/', '/login'], (req, res) => {
-  const file = req.path === '/login' ? 'login.html' : 'index.html';
+
+app.get(['/', '/login', '/register'], (req, res) => {
+  const file =
+    req.path === '/login'    ? 'login.html' :
+    req.path === '/register' ? 'register.html' :
+                               'index.html';
   res.sendFile(path.join(FRONTEND_DIR, file));
 });
+
 
 // Catch-all error handler
 app.use((err, req, res, next) => {

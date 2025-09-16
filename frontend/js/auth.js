@@ -1,22 +1,18 @@
-const KEY = "fa.session"
+// frontend/js/auth.js
+const KEY = 'fa.session';
 
-
-export function saveToken(token)
-{
-    localStorage.setItem(KEY,JSON.stringify({token}))
+export function saveSession(token) {
+  try { localStorage.setItem(KEY, JSON.stringify({ token })); } catch {}
 }
 
-export function getToken(){
-    try{ return JSON.parse(localStorage.getItem(KEY))?.token || null}
-    catch{ return null}
+export function getToken() {
+  try { return JSON.parse(localStorage.getItem(KEY))?.token || null; } catch { return null; }
 }
 
-export function clearsession() {
-    localStorage.removeItem(KEY)
-}
+export function isAuthed() { return !!getToken(); }
 
-export function isAuthed() {
-    return !!getToken();
+export function clearSession() {
+  try { localStorage.removeItem(KEY); } catch {}
 }
 
 
