@@ -1,10 +1,6 @@
 const express = require('express');
 const { handleApiError } = require('./utils/apiUtils');
 
-// Validate environment variables are set
-const EnvHelper = require('./utils/envHelper');
-EnvHelper.validate();
-
 const app = express();
 app.use(express.json());
 
