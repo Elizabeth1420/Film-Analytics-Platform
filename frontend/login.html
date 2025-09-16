@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./styles/base.css" />
   <link rel="stylesheet" href="./styles/components.css" />
 </head>
+
 <body class="auth-bg center">
   <main>
     <section class="card auth-card" aria-labelledby="loginTitle">
@@ -19,7 +20,7 @@
         Access trending movies, ratings and reviews. Admin tools available after sign-in.
       </p>
 
-      <form class="form-grid" id="loginForm" novalidate>
+      <form class="form-grid" id="loginForm" action="/api/auth/login" method = "post" novalidate>
         <label>
           Email
           <input class="input" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
@@ -41,6 +42,10 @@
 
         <!-- purely visual now; JS will toggle this later -->
         <p id="loginError" class="error" aria-live="polite" hidden>Invalid email or password.</p>
+        <p class="small muted" style="margin-top:12px;">
+        New here? <a href="/register">Create an account</a>
+        </p>
+
       </form>
     </section>
 
@@ -48,5 +53,6 @@
       By continuing you agree to the terms. Data sources: TMDb & OMDb.
     </p>
   </main>
+  <script type="module" src="./js/login.js"></script>
 </body>
 </html>
