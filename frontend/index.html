@@ -10,6 +10,13 @@
 <body>
   <header class="site-header">
     <div class="inner"><a class="brand" href="/">Film Analytics</a></div>
+    <div class="header-search">
+    <form id="globalSearchForm" class="searchbar" role="search" aria-label="Search movies">
+      <input class="input" name="q" placeholder="Search a movie title…" required />
+      <input class="input" name="year" placeholder="Year (e.g. 2024)" inputmode="numeric" pattern="[0-9]*" required />
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </div>
   </header>
 
   <main id="app" class="container"></main>
