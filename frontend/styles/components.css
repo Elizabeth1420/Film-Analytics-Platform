@@ -210,3 +210,16 @@
 .review:first-of-type { border-top: 0; }
 
 
+.site-header .header-search{
+  display:flex;
+  justify-content:center;
+  padding: 8px 16px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .header-search .searchbar{
+  width: 100%;
+  max-width: 900px;
+  gap: 12px;
+}
+.site-header .header-search .input{ height: 44px; }
