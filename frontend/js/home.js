@@ -51,6 +51,16 @@ export function renderHome(root) {
     </section>
   `;
 
+  const heroForm = root.querySelector('#heroSearch');
+heroForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const fd = new FormData(heroForm);
+  const title = (fd.get('name') || fd.get('q') || '').trim();  // accepts either
+  const year  = (fd.get('year') || '').trim();
+  if (!title || !year) return;
+  location.href = `/search?name=${encodeURIComponent(title)}&year=${encodeURIComponent(year)}&page=1`;
+});
+
   const el = {
     grid: root.querySelector('#grid'),
     msg:  root.querySelector('#msg'),
