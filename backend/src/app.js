@@ -23,13 +23,21 @@ const path = require('path');
 const FRONTEND_DIR = path.join(__dirname, '..', '..', 'frontend');
 app.use(express.static(FRONTEND_DIR));
 
-app.get(['/', '/login', '/register'], (req, res) => {
-  const file =
-    req.path === '/login'    ? 'login.html' :
-    req.path === '/register' ? 'register.html' :
-                               'index.html';
-  res.sendFile(path.join(FRONTEND_DIR, file));
-});
+// app.get(['/', '/login', '/register', '/search', '/details', '/admin'], (req, res) => {
+//   const file =
+//     req.path === '/login'    ? 'login.html' :
+//     req.path === '/register' ? 'register.html' :
+//                                'index.html';
+//   res.sendFile(path.join(FRONTEND_DIR, file));
+// });
+
+app.get('/login',    (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'login.html')));
+app.get('/register', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'register.html')));
+
+// SPA routes: always send index.html so the client router can render
+app.get(['/', '/search', '/details', '/admin'], (req, res) => {
+  res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
+})
 
 
 // Catch-all error handler
