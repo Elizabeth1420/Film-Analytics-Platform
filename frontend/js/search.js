@@ -98,15 +98,38 @@ export async function renderSearch(root) {
       updatePager();
 
       // click → details
-      el.grid.querySelectorAll('.movie-card').forEach((node) => {
-        node.addEventListener('click', () => {
-          const id = node.getAttribute('data-id');
-          if (id) location.href = `/details?id=${id}`;
-        });
-        node.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); node.click(); }
-        });
-      });
+    //   el.grid.querySelectorAll('.movie-card').forEach((node) => {
+    //     node.addEventListener('click', () => {
+    //       const id = node.getAttribute('data-id');
+    //       if (id) location.href = `/details?id=${id}`;
+    //     });
+    //     node.addEventListener('keydown', (e) => {
+    //       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); node.click(); }
+    //     });
+    //   });
+    // click → details (save minimal info for instant header on the details page)
+    el.grid.querySelectorAll('.movie-card').forEach((node) => {
+         node.addEventListener('click', () => {
+        const id = node.getAttribute('data-id');
+        if (!id) return;
+
+    
+    const m = {
+      id,
+      title: node.querySelector('h3')?.childNodes?.[0]?.textContent?.trim() || '',
+      year:  node.querySelector('.meta')?.textContent?.replace(/[()]/g, '') || '',
+      poster_path: node.querySelector('img')?.getAttribute('src') || '',
+    };
+    try { sessionStorage.setItem('fa.selectedMovie', JSON.stringify(m)); } catch {}
+
+    location.href = `/details?id=${id}`;
+  });
+
+    node.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); node.click(); }
+  });
+});
+
     } catch (e) {
       el.msg.textContent = e?.message || 'Failed to load results.';
       el.grid.innerHTML = '';
