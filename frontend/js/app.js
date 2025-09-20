@@ -1,6 +1,8 @@
 
-import { isAuthed, clearSession } from './auth.js';
+import { isAuthed, clearSession, normaliseSession } from './auth.js';
 import { startRouter } from './router.js';
+
+normaliseSession()
 
 console.log('[APP] LOADED path=', location.pathname);
 
@@ -27,9 +29,27 @@ gForm?.addEventListener('submit', (e) => {
 });
 
 
-// Optional logout handler if you add a button with id="logoutBtn"
-document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+const logoutBtn = document.getElementById('logoutBtn');
+
+// Show/hide Admin & Logout based on auth
+(function authHeaderVisibility() {
+  const authed = isAuthed();
+  if (logoutBtn) logoutBtn.hidden = !authed;
+  const adminLink = document.querySelector('.top-links a[href="/admin"]');
+  if (adminLink) adminLink.hidden = !authed;
+})();
+
+// Logout click
+logoutBtn?.addEventListener('click', async () => {
   try { await fetch('/api/auth/logout'); } catch {}
   clearSession();
   location.href = '/login';
 });
+
+// Gate pages behind auth
+if (location.pathname !== '/login' && location.pathname !== '/register' && !isAuthed()) {
+  location.href = '/login';
+} else {
+  const app = document.getElementById('app');
+  startRouter(app);
+}

@@ -30,16 +30,16 @@ form?.addEventListener('submit', async (e) => {
 
     if (!res.ok) throw new Error(json?.error || 'Invalid email or password');
 
-    // backend returns { message, user: { session: { access_token }, ... } }
-    const token = json?.user?.session?.access_token;
-    console.log('[LOGIN] token received?', !!token, token ? '(length ' + token.length + ')' : '');
+    console.log('[LOGIN] response', json);
+    const token  = json?.user?.session?.access_token;
+    const userId = json?.user?.user?.id;
+    const email  = json?.user?.user?.email;
+    console.log('[LOGIN] token starts:', (token || '').slice(0, 16));
     if (!token) throw new Error('No session token returned');
 
-    saveSession(token);
-    console.log('[LOGIN] session saved, redirect -> /');
+    saveSession({ access_token: token, user_id: userId, email });
     location.href = '/';
   } catch (e2) {
-    console.error('[LOGIN] error:', e2);
     err.textContent = e2.message || 'Sign-in failed';
     err.hidden = false;
   }
