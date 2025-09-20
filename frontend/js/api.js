@@ -1,4 +1,4 @@
-import { getToken } from './auth.js';
+import { getToken,clearSession } from './auth.js';
 
 function authHeaders() {
   const t = getToken();

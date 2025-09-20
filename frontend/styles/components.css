@@ -246,3 +246,21 @@
 .reviews { display: grid; gap: 14px; }
 .review { background: var(--surface); border-radius: 12px; box-shadow: var(--shadow-sm); padding: 12px 14px; }
 .review .author { font-weight: 700; }
+
+
+.top-links { margin-left: auto; display:flex; gap:14px; align-items:center; }
+.top-links a { font-weight:600; }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  background: #f4f6f9;
+  box-shadow: var(--shadow-md);
+}
